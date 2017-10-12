@@ -6,6 +6,7 @@
           "tabs",
           "cookies",
           "*://*.bnz.co.nz/",
+          "*://localhost/",
           "notifications",
           "storage"
         ],
@@ -13,7 +14,7 @@
      "default_icon": "icon.png"
    },
    "background": {
-     "scripts": ["background.js"]
+     "scripts": ["jquery-3.2.1.min.js","background.js"]
    }
    ,
    "content_scripts": [
