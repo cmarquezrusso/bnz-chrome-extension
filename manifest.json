@@ -1,0 +1,36 @@
+ {
+        "name": "BNZ Token AUTH",
+        "manifest_version": 2,
+	    "version": "0.1",
+        "permissions": [
+          "tabs",
+          "cookies",
+          "*://*.bnz.co.nz/",
+          "notifications",
+          "storage"
+        ],
+   "browser_action": {
+     "default_icon": "icon.png"
+   },
+   "background": {
+     "scripts": ["background.js"]
+   }
+   ,
+   "content_scripts": [
+    {
+      "matches": ["https://www.bnz.co.nz/client/"],
+      "js": ["content-script.js"]
+    }
+  ],
+   "options_ui": {
+     //https://developer.chrome.com/extensions/optionsV2
+     // Required.
+     "page": "options.html",
+     // Recommended.
+     "chrome_style": true
+     // Not recommended; only provided for backwards compatibility,
+     // and will be unsupported in a future version of Chrome (TBD).
+     //"open_in_tab": true
+   }
+}
+
