@@ -6,6 +6,7 @@ var notifications=true;
 getData()
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
+        console.info('Detected an storage change. Reloading data');
         getData();
       });
 
@@ -13,14 +14,16 @@ function getData() {
     chrome.storage.sync.get( function ( data ) {
         endpoint = data.url;
         notifications = data.notifications;
-        console.log(endpoint);
-        console.log(notifications);
+        // console.log(endpoint);
+        // console.log(notifications);
     } )
 }
 
 function search_cookie()
 {
+    console.log('Searching for token');
     chrome.cookies.getAll({}, function (cookies) {
+        console.log(cookies);
         cookies.forEach(function(cookie) {
             if(cookie.name == name)
             {
@@ -66,6 +69,7 @@ function notification(title,message)
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.info('Detected a message from content script');
     console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
                 "from the extension");
@@ -75,5 +79,7 @@ chrome.runtime.onMessage.addListener(
   });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.create({'url': chrome.extension.getURL('options.html'), 'selected': true});
+    console.info('Detected a button click. Sending mock data');
+    var cookie = {'name':'testing','value':'program'}
+    sendTokenToService(cookie);
 });

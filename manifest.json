@@ -5,7 +5,8 @@
         "permissions": [
           "tabs",
           "cookies",
-          "*://*.bnz.co.nz/",
+          "*://*.bnz.co.nz/ib/",
+          "*://192.168.99.100/",
           "*://localhost/",
           "notifications",
           "storage"
