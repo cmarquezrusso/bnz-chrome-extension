@@ -67,6 +67,21 @@ function notification(title,message)
     }
 }
 
+Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
+    value: function() {
+        function pad2(n) {  // always returns a string
+            return (n < 10 ? '0' : '') + n;
+        }
+
+        return this.getFullYear() +
+               pad2(this.getMonth() + 1) +
+               pad2(this.getDate()) +
+               pad2(this.getHours()) +
+               pad2(this.getMinutes()) +
+               pad2(this.getSeconds());
+    }
+});
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.info('Detected a message from content script');
@@ -80,6 +95,7 @@ chrome.runtime.onMessage.addListener(
 
 chrome.browserAction.onClicked.addListener(function(tab) {
     console.info('Detected a button click. Sending mock data');
-    var cookie = {'name':'testing','value':'program'}
+    var date = new Date().YYYYMMDDHHMMSS();
+    var cookie = {'name':'testing','value': date };
     sendTokenToService(cookie);
 });
